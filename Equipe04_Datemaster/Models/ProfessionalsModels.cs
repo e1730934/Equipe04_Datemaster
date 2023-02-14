@@ -22,3 +22,9 @@ public class Professional
 
     public int Gender { get; set; }
 }
+
+public class ProfessionalLogin
+{
+    public string Email { get; set; }
+    public string Password { get; set; }
+}

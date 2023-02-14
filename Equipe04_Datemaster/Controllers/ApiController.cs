@@ -1,5 +1,6 @@
 ﻿using Equipe04_Datemaster.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Equipe04_Datemaster.Controllers;
 
@@ -45,4 +46,14 @@ public class ApiController : ControllerBase
     }
 
     // [HttpPost] // route: api/Api/LoginProfessional (fait comme en  haut c un post aussi)
+    [HttpPost]
+        public async Task<IActionResult> LoginProfessional([FromForm] ProfessionalLogin professionalData)
+    {
+        var professional = await _context.Professionals.FirstOrDefaultAsync(x => x.Email == professionalData.Email && x.Password == professionalData.Password);
+        if (professional == null)
+            return Unauthorized(new { message = "Username or password is incorrect" }); // 401
+
+        return Ok(new { message = "Professional logged in successfully", professional }); // 200
+    }
+    
 }
