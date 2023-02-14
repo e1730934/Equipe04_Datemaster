@@ -1,0 +1,15 @@
+-- SQLite
+CREATE TABLE IF NOT EXISTS Professionals (
+  Id INTEGER PRIMARY KEY AUTOINCREMENT,
+  FirstName TEXT NOT NULL,
+  LastName TEXT NOT NULL,
+  Email TEXT NOT NULL UNIQUE,
+  Phone INTEGER NOT NULL,
+  Birthdate TEXT NOT NULL,
+  Gender TEXT NOT NULL,
+  Password TEXT NOT NULL,
+  Address TEXT NOT NULL,
+  FakeId INTEGER NULL
+);
+
+drop TABLE Professionals
