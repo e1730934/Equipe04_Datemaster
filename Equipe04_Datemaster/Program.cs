@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DbContext>(options =>
 {
     options.UseSqlite(
-        "Data Source=C:/Users/narut/Documents/backend selu/Equipe04_Datemaster/Equipe04_Datemaster/Datemaster12.sqlite");
+        "Data Source=C:\\Users\\bilal\\Documents\\RiderProjects\\Equipe04_Datemaster\\Equipe04_Datemaster\\Datemaster12.sqlite");
 });
 
 var app = builder.Build();
