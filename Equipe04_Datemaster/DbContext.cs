@@ -10,4 +10,7 @@ public class DbContext : Microsoft.EntityFrameworkCore.DbContext
     }
 
     public DbSet<Professional> Professionals { get; set; }
+
+    public DbSet<Event> Events { get; set; }
+    
 }

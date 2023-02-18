@@ -55,5 +55,53 @@ public class ApiController : ControllerBase
 
         return Ok(new { message = "Professional logged in successfully", professional }); // 200
     }
-    
+
+
+    //(GET) Voir les evenements d'un professionnel (avec son id) [FromForm]
+    // route: api/Api/GetEvents
+    [HttpGet]
+    public async Task<IActionResult> GetEvents([FromForm] int professionalId)
+    {
+        var events = await _context.Events.Where(x => x.OrganizerId == professionalId).ToListAsync();
+        if (events.Count == 0)
+            return NotFound(new { message = "No events found" }); 
+        else
+            return Ok(new { message = "Events found", events }); 
+    }
+
+
+
 }
+
+
+// CREATE TABLE Events (
+// id INTEGER PRIMARY KEY AUTOINCREMENT,
+// title TEXT NOT NULL,
+// description TEXT,
+// location TEXT,
+// start_time TEXT NOT NULL,
+// end_time TEXT NOT NULL,
+// organizer_id INTEGER NOT NULL,
+// created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+// FOREIGN KEY (organizer_id) REFERENCES Professionals(Id)
+// );
+
+// -- Table pour les participants
+// CREATE TABLE Participants (
+// id INTEGER PRIMARY KEY AUTOINCREMENT,
+// name TEXT NOT NULL,
+// email TEXT NOT NULL,
+// event_id INTEGER NOT NULL,
+// created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+// FOREIGN KEY (event_id) REFERENCES events(id)
+// );
+
+// -- Table pour les disponibilités des utilisateurs
+// CREATE TABLE Availability (
+// id INTEGER PRIMARY KEY AUTOINCREMENT,
+// start_time TEXT NOT NULL,
+// end_time TEXT NOT NULL,
+// user_id INTEGER NOT NULL,
+// created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+// FOREIGN KEY (user_id) REFERENCES Professionals(Id)
+// );

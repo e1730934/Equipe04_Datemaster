@@ -8,11 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Add your DbContext configuration to the container
+// Add your DbContext configuration to the container"Data Source=C:/Users/narut/Documents/backend selu/Equipe04_Datemaster/Equipe04_Datemaster/Datemaster12.sqlite"
 builder.Services.AddDbContext<DbContext>(options =>
 {
-    options.UseSqlite(
-        "Data Source=C:\\Users\\bilal\\Documents\\RiderProjects\\Equipe04_Datemaster\\Equipe04_Datemaster\\Datemaster12.sqlite");
+    options.UseSqlite("Data Source=C:/Users/narut/Documents/backend selu/Equipe04_Datemaster/Equipe04_Datemaster/Datemaster12.sqlite");
 });
+
 
 var app = builder.Build();
 
