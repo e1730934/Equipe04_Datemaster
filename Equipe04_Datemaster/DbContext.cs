@@ -1,0 +1,13 @@
+﻿using Equipe04_Datemaster.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace Equipe04_Datemaster;
+
+public class DbContext : Microsoft.EntityFrameworkCore.DbContext
+{
+    public DbContext(DbContextOptions<DbContext> options) : base(options)
+    {
+    }
+
+    public DbSet<Professional> Professionals { get; set; }
+}
