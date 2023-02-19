@@ -21,10 +21,8 @@ public class Professional
     public int Birthdate { get; set; }
 
     public int Gender { get; set; }
+
+    [Required(AllowEmptyStrings = true)]
+    public int Id { get; set; }
 }
 
-public class ProfessionalLogin
-{
-    public string Email { get; set; }
-    public string Password { get; set; }
-}
