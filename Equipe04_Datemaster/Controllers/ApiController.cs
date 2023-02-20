@@ -235,25 +235,7 @@ public class ApiController : ControllerBase
         }
     }
 
-    /*
-     * create table main.Professionals
-  (
-      Id        INTEGER
-          primary key autoincrement,
-      FirstName TEXT    not null,
-      LastName  TEXT    not null,
-      Email     TEXT    not null
-          unique,
-      Phone     INTEGER not null,
-      Birthdate TEXT    not null,
-      Gender    TEXT    not null,
-      Password  TEXT    not null,
-      Address   TEXT    not null,
-      FakeId    INTEGER
-  );
-  
-  
-     */
+
 //(GET) Les infos du professionel /professional/:idProfessional
 
     [HttpGet("{idProfessional}")]
@@ -273,5 +255,24 @@ public class ApiController : ControllerBase
                 new { message = "An error occurred while retrieving professional", error = ex.Message });
         }
 
+    }
+    
+    //(GET) Voir les disponibilités : https://localhost:7087/api/Api/GetAvailability/:idAvailabilities
+    [HttpGet("{idAvailabilities}")]
+    public async Task<IActionResult> GetAvailability(int idAvailabilities)
+    {
+        try
+        {
+            var availability = await _context.Availabilities.FirstOrDefaultAsync(x => x.Id == idAvailabilities);
+            if (availability == null)
+                return NotFound(new { message = "Availability not found" }); // 404
+            else
+                return Ok(new { message = "Availability retrieved successfully", availability }); // 200
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new { message = "An error occurred while retrieving availability", error = ex.Message });
+        }
     }
 }

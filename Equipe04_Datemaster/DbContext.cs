@@ -15,4 +15,6 @@ public class DbContext : Microsoft.EntityFrameworkCore.DbContext
 
     public DbSet<Participants> Participants { get; set; }
     
+    public DbSet<Availability> Availabilities { get; set; }
+    
 }
