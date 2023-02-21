@@ -1,4 +1,4 @@
-﻿using Equipe04_Datemaster.Models;
+﻿  using Equipe04_Datemaster.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,7 +47,7 @@ public class ApiController : ControllerBase
 
     // [HttpPost] // route: api/Api/LoginProfessional (fait comme en  haut c un post aussi)
     [HttpPost]
-    public async Task<IActionResult> LoginProfessional([FromForm] Professional professionalData)
+    public async Task<IActionResult> LoginProfessional([FromForm] ProfessionalLogin professionalData)
     {
         var professional = await _context.Professionals.FirstOrDefaultAsync(x =>
             x.Email == professionalData.Email && x.Password == professionalData.Password);
