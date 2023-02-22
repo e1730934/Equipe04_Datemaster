@@ -63,7 +63,9 @@ export default function Login() {
                             <div class="d-flex justify-content-center ">
                                 <button class="btn bg-primary text-white w-100 " onClick={login}> Connexion</button>
                             </div>
-                            <p class="text-black"><small></small>Vous n'avez pas de compte ? <g>Cliquez-ici</g></p>
+                            <p class="text-black" onClick={
+                                () => navigate("/register")
+                            }>Vous n'avez pas de compte ? <g>Cliquez-ici</g></p>
                         </div>
                     </div>
                 </div>
