@@ -10,6 +10,7 @@ export default function Home() {
     const {idProfessional} = useParams();
     const [professionalData, setProfessionalData] = useState(null);
     const [events, setEvents] = useState(null);
+    const [eventsConverted, setEventsConverted] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -38,8 +39,18 @@ export default function Home() {
         }
 
         getEvents();
+        convertEvents(events)
     }, [idProfessional]);
-
+    async function convertEvents(events){
+        if(events){
+            const eventData = events.map((event) => {
+                return {
+                    title: event.title,
+                    date: event.start_time.split(" ")[0]
+                    }
+                    });
+            setEventsConverted(eventData);
+        }}
 
     return (
         <>
@@ -127,10 +138,7 @@ export default function Home() {
                                 plugins={[dayGridPlugin]}
                                 initialView="dayGridMonth"
                                 weekends={false}
-                                events={[
-                                    {title: 'event 1', date: '2023-03-01'},
-                                    {title: 'event 2', date: '2021-03-02'}
-                                ]}
+                                events={eventsConverted}
                                 height={300}
                                 width={380}
                             />
