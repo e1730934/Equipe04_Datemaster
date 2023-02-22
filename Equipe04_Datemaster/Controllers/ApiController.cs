@@ -24,8 +24,6 @@ public class ApiController : ControllerBase
     [HttpPost] // route: api/Api/SignupProfessional
     public async Task<IActionResult> SignupProfessional([FromForm] Professional professionalData)
     {
-        Console.WriteLine(professionalData);
-
         var professional = new Professional
         {
             FirstName = professionalData.FirstName,
@@ -38,10 +36,13 @@ public class ApiController : ControllerBase
             Password = professionalData.Password,
             FakeId = professionalData.FakeId
         };
-
+        
+        Console.WriteLine(professionalData);
         _context.Professionals.Add(professional);
         await _context.SaveChangesAsync();
-
+        
+        // if error
+        
         return Ok(new { message = "Professional created successfully", professional }); // 200 et sa retourne un json
     }
 
