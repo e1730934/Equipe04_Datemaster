@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Datemaster12" uuid="275084ee-2660-4737-907c-e1b3ff5989b3">
+    <data-source source="LOCAL" name="Datemaster12" uuid="d09adf26-e5a7-410b-937b-e37817012d6c">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Windows\Documents\RiderProjects\Datemaster\Equipe04_Datemaster\Datemaster12.sqlite</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\bilal\Documents\RiderProjects\Equipe04_Datemaster\Equipe04_Datemaster\Datemaster12.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.39.2/sqlite-jdbc-3.39.2.jar</url>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/sqlite-jdbc-3.40.1.jar</url>
         </library>
       </libraries>
     </data-source>

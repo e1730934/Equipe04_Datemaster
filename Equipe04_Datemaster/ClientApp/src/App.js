@@ -11,8 +11,8 @@ export default class App extends Component {
     render() {
         return (
             <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/login" element={<Login/>}/>
+                <Route path="/" element={<Login/>}/>
+                <Route path="/professional/:idProfessional" element={<Home/>}/>
                 <Route path="/register" element={<Register/>}/> 
             </Routes>
         );
