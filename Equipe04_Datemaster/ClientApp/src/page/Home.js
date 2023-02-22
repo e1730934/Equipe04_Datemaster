@@ -1,83 +1,106 @@
-﻿import { useEffect, useState } from "react";
+﻿import {useEffect, useState} from "react";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import {useNavigate, useParams} from "react-router-dom";
 
 
 export default function Home() {
-    
+
     // Get idProfessional from params
     const {idProfessional} = useParams();
     const [professionalData, setProfessionalData] = useState(null);
     const [events, setEvents] = useState(null);
+    const [eventsConverted, setEventsConverted] = useState([]);
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         async function getProfessionalData() {
             const res = await fetch(`https://localhost:7087/api/Api/GetProfessional/${idProfessional}`);
-            if(res.ok) {
+            if (res.ok) {
                 const data = await res.json();
                 setProfessionalData(data.professional);
-            }else {
+            } else {
                 console.log(res.status);
             }
         }
+
         getProfessionalData();
     }, [idProfessional]);
-    
+
     useEffect(() => {
         async function getEvents() {
             const res = await fetch(`https://localhost:7087/api/Api/GetEvents/${idProfessional}`);
-            if(res.ok) {
+            if (res.ok) {
                 const data = await res.json();
                 setEvents(data.events);
-            }else {
+            } else {
                 console.log(res.status);
             }
         }
+
         getEvents();
+        convertEvents(events)
     }, [idProfessional]);
-    
+    async function convertEvents(events){
+        if(events){
+            const eventData = events.map((event) => {
+                return {
+                    title: event.title,
+                    date: event.start_time.split(" ")[0]
+                    }
+                    });
+            setEventsConverted(eventData);
+        }}
 
     return (
         <>
-            <div className="d-flex full-height full-width " style={{}}  >
+            <div className="d-flex full-height full-width " style={{}}>
                 {/* SIDEBAR */}
-                <div className="d-flex flex-column flex-shrink-0 p-4 text-black bg-white full-height border " style={{ width: 300 }} >
+                <div className="d-flex flex-column flex-shrink-0 p-4 text-black bg-white full-height border "
+                     style={{width: 300}}>
                     <div className="d-flex align-content-center justify-content-center">
-                        <div style={{ width: 160, height: 160 }} className="bg-primary rounded-circle d-flex justify-content-center align-content-center ">
-                            <img src="https://cdn.discordapp.com/attachments/1024417997785399308/1077767238309924874/PXPNG.COMNicole_Watterson_The_Amazing_World_of_Gumball_PNG_Image_-_742x1077.png"
-                                alt="" style={{ height: 150 }} className="mt-2" />
+                        <div style={{width: 160, height: 160}}
+                             className="bg-primary rounded-circle d-flex justify-content-center align-content-center ">
+                            <img
+                                src="https://cdn.discordapp.com/attachments/1024417997785399308/1077767238309924874/PXPNG.COMNicole_Watterson_The_Amazing_World_of_Gumball_PNG_Image_-_742x1077.png"
+                                alt="" style={{height: 150}} className="mt-2"/>
                         </div>
                     </div>
                     <>
-                    {/*    if professionalData.firstName is not empty*/
-                        professionalData && professionalData.firstName && (
-                            <div href="/" className=" mt-2 text-decoration-none">
-                                <h4 className="fs-4 text-black text-center  ">{professionalData.lastName}, {professionalData.firstName}</h4>
-                            </div>)
-                    }
+                        {
+                            professionalData && professionalData.firstName && (
+                                <div href="/" className=" mt-2 text-decoration-none">
+                                    <h4 className="fs-4 text-black text-center  ">{professionalData.lastName}, {professionalData.firstName}</h4>
+                                </div>)
+                        }
                     </>
-                    
-                    <hr />
+
+                    <hr/>
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li className="nav-item">
                             <a href="/" className="nav-link active" aria-current="page">
-                                <svg className="" width="16" height="16"><use xlinkHref="#home" /></svg>
+                                <svg className="" width="16" height="16">
+                                    <use xlinkHref="#home"/>
+                                </svg>
                                 <span className="text-xl">Tableau de bord</span>
                             </a>
                         </li>
                         <li>
                             <a href="/" className="nav-link  mt-4">
-                                <svg className="" width="16" height="16"><use xlinkHref="#speedometer2" /></svg>
+                                <svg className="" width="16" height="16">
+                                    <use xlinkHref="#speedometer2"/>
+                                </svg>
                                 <span>Mon calendrier</span>
                             </a>
                         </li>
                     </ul>
-                    <hr />
+                    <hr/>
                     <div className="dropdown">
-                        <button className="btn bg-primary text-white w-100 " onClick={() => {navigate("/login");}}>
-                            Déconnexion</button>
+                        <button className="btn bg-primary text-white w-100 " onClick={() => {
+                            navigate("/");
+                        }}>
+                            Déconnexion
+                        </button>
                     </div>
                 </div>
 
@@ -96,35 +119,41 @@ export default function Home() {
                     </div>
 
 
-                <div className="d-flex flex-column  m-3 border casiWeight rounded" >
-                    <div className="t1  p-4">
-                        <h4>
-                            Pour aujourd'hui ,
-                        </h4>
-                        <h4> vous avez un total de <g>55</g> Rendez-vous.</h4>
-                    </div>
+                    <div className="d-flex flex-column  m-3 border casiWeight rounded">
+                        <div className="t1  p-4">
+                            <h4>
+                                Pour le moment,
+                            </h4>
+                            <h4> Vous avez un total de 
+                                <>{
+                                    events && events.length && (
+                                        <g> {events.length} rendez-vous.</g>)}
+                                </>
+                            </h4>
+                        </div>
 
-                    <div className="w-100 p-4 m-0 " >
-                        <h6>Vos disponibilites :</h6>
-                        <FullCalendar 
-                            plugins={[dayGridPlugin]}
-                            initialView="dayGridMonth"
-                            weekends={false}
-                            events={[
-                                { title: 'event 1', date: '2023-03-01' },
-                                { title: 'event 2', date: '2021-03-02' }
-                            ]}
-                            height={300}
-                            width={380}
-                        />
-                        <p className=""><small>*Pour une meilleure vue, vous pouvez <g>cliquez-ici </g>. </small></p>
-                        <p className="text-black m-0">Vous souhaitez generer un lien pour que vos clients puisse prendre rendez-vous ?</p>
+                        <div className="w-100 p-4 m-0 ">
+                            <h6>Vos disponibilites :</h6>
+                            <FullCalendar
+                                plugins={[dayGridPlugin]}
+                                initialView="dayGridMonth"
+                                weekends={false}
+                                events={eventsConverted}
+                                height={300}
+                                width={380}
+                            />
+                            <p className="" onClick={() => {navigate(`/calendrier/${idProfessional}`);}}>
+                                <small>*Pour une meilleure vue, vous pouvez <g>cliquez-ici </g>. 
+                                </small>
+                            </p>
+                            <p className="text-black m-0">Vous souhaitez generer un lien pour que vos clients puisse
+                                prendre rendez-vous ?</p>
+                        </div>
+
+                        <div className="p-4">
+                            <button className="btn bg-primary text-white"> Générer un lien</button>
+                        </div>
                     </div>
-                    
-                    <div className="p-4">
-                        <button className="btn bg-primary text-white"> Générer un lien</button>
-                    </div>
-                </div>
 
                 </div>
 
