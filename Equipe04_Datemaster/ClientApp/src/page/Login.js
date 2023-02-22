@@ -1,25 +1,31 @@
 import {useState} from "react";
-import {forEach} from "react-bootstrap/ElementChildren";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
 
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     
-    
-  
+    const navigate = useNavigate();
+      
 
     async function login() {
         const formdata = new FormData();
         formdata.append("Email", Email);
         formdata.append("Password", Password);
         
-        const response = await fetch("https://localhost:7087/api/Api/LoginProfessional", {
+        const res = await fetch("https://localhost:7087/api/Api/LoginProfessional", {
             method: "POST",
             body: formdata
         });
-        const data = await response.json();
-        console.log(data);
+        if(res.ok) {
+            const data = await res.json();
+            console.log(data);
+            const idProfessional = data.professional.id;
+            navigate("/professional/" + idProfessional)
+        }else {
+            alert("Erreur de connexion");
+        }
     }
 
     return (
