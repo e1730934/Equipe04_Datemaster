@@ -275,4 +275,30 @@ public class ApiController : ControllerBase
                 new { message = "An error occurred while retrieving availability", error = ex.Message });
         }
     }
+    
+    [HttpPost]
+    
+    public async Task<IActionResult> PostAvailability([FromForm] Availability availabilityData)
+    {
+        try
+        {
+            var newAvailability = new Availability
+            {
+                Start_time = availabilityData.Start_time,
+                End_time = availabilityData.End_time,
+                User_id = availabilityData.User_id,
+                Created_At = availabilityData.Created_At,
+                FakeId = availabilityData.FakeId
+            };
+            _context.Availabilities.Add(newAvailability);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Availability created successfully", newAvailability }); // 200
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new { message = "An error occurred while creating availability", error = ex.Message });
+        }
+    }
 }
