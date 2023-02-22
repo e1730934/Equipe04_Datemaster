@@ -1,0 +1,51 @@
+
+
+export default function Login() {
+
+    return (
+        <>
+
+            {/* TOP */}
+            <div className="d-flex full-width justify-content-center align-content-center  border-bottom">
+                <div className="bg-primary rounded-circle mb-2 mt-1" style={{ width: 50, height: 50 }}>
+                    <div className="d-flex justify-content-center align-content-center">
+                        <img src="https://cdn.discordapp.com/attachments/1024417997785399308/1077767238309924874/PXPNG.COMNicole_Watterson_The_Amazing_World_of_Gumball_PNG_Image_-_742x1077.png" alt="" style={{ height: 40 }} className="mt-2" />
+                    </div>
+                </div>
+            </div>
+
+
+
+            {/* BODY */}
+            <div className="d-flex">
+                {/* BODY-LEFT */}
+                <div class="d-flex w-50 full-height justify-content-center ">
+                    <div class="full-height w-50 d-flex align-items-center">
+                        <div class=" h-fit w-100 justify-content-center ">
+                            <div class="txtlog1 mb-3">
+                                <h2 class="text-black">Connexion</h2>
+                            </div>
+                            <div class="inputlog1 mb-3">
+                                <input type="text" placeholder="Nom d'utilisateur" className="form-control mb-3" />
+                                <input type="text" placeholder="Mot de passe" className="form-control" />
+                            </div>
+                            <div class="d-flex justify-content-center ">
+                                <button class="btn bg-primary text-white w-100 "> Connexion</button>
+                            </div>
+                            <p class="text-black"><small></small>Vous n'avez pas de compte ? <g>Cliquez-ici</g></p>
+                        </div>
+                    </div>
+                </div>
+                {/* BODY-RIGHT */}
+                <div className="d-flex w-50 full-height justify-content-center border-start align-content-center">
+                <div class="full-height  d-flex align-items-center">
+                        <div class=" h-fit  justify-content-center ">
+                            <h4 class="text-black"><small></small> Partie en contruction... 🐋</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+
+}

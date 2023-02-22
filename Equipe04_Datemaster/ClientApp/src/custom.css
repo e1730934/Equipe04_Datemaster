@@ -16,3 +16,26 @@ code {
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
+
+
+.full-height {
+    height: 100vh;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.casiWeight{
+    width: 95%;
+    height: 78%;
+}
+
+g{
+    font-size: 1.5rem;
+    color: #258cfb;
+}
+
+.h-fit{
+    height: fit-content;
+}
