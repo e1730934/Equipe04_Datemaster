@@ -97,7 +97,7 @@ export default function Home() {
                     <hr/>
                     <div className="dropdown">
                         <button className="btn bg-primary text-white w-100 " onClick={() => {
-                            navigate("/login");
+                            navigate("/");
                         }}>
                             Déconnexion
                         </button>
@@ -142,7 +142,9 @@ export default function Home() {
                                 height={300}
                                 width={380}
                             />
-                            <p className=""><small>*Pour une meilleure vue, vous pouvez <g>cliquez-ici </g>. </small>
+                            <p className="" onClick={() => {navigate(`/calendrier/${idProfessional}`);}}>
+                                <small>*Pour une meilleure vue, vous pouvez <g>cliquez-ici </g>. 
+                                </small>
                             </p>
                             <p className="text-black m-0">Vous souhaitez generer un lien pour que vos clients puisse
                                 prendre rendez-vous ?</p>
