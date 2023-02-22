@@ -1,4 +1,4 @@
-﻿  using Equipe04_Datemaster.Models;
+﻿using Equipe04_Datemaster.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,10 +59,10 @@ public class ApiController : ControllerBase
     }
 
 
-    //(GET) Voir les evenements d'un professionnel (avec son id) [FromForm]
-    // route: api/Api/GetEvents
-    [HttpGet]
-    public async Task<IActionResult> GetEvents([FromForm] int professionalId)
+    //(GET) Voir les evenements d'un professionnel (avec son id)
+    // route: api/Api/GetEvents/:professionalId
+    [HttpGet("{professionalId}")]
+    public async Task<IActionResult> GetEvents(int professionalId)
     {
         try
         {

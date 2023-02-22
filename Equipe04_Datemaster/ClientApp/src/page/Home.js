@@ -1,13 +1,45 @@
 ﻿import { useEffect, useState } from "react";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
+import {useNavigate, useParams} from "react-router-dom";
 
 
 export default function Home() {
-
+    
+    // Get idProfessional from params
+    const {idProfessional} = useParams();
+    const [professionalData, setProfessionalData] = useState(null);
+    const [events, setEvents] = useState(null);
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        async function getProfessionalData() {
+            const res = await fetch(`https://localhost:7087/api/Api/GetProfessional/${idProfessional}`);
+            if(res.ok) {
+                const data = await res.json();
+                setProfessionalData(data.professional);
+            }else {
+                console.log(res.status);
+            }
+        }
+        getProfessionalData();
+    }, [idProfessional]);
+    
+    useEffect(() => {
+        async function getEvents() {
+            const res = await fetch(`https://localhost:7087/api/Api/GetEvents/${idProfessional}`);
+            if(res.ok) {
+                const data = await res.json();
+                setEvents(data.events);
+            }else {
+                console.log(res.status);
+            }
+        }
+        getEvents();
+    }, [idProfessional]);
+    
 
     return (
-
         <>
             <div className="d-flex full-height full-width " style={{}}  >
                 {/* SIDEBAR */}
@@ -18,10 +50,15 @@ export default function Home() {
                                 alt="" style={{ height: 150 }} className="mt-2" />
                         </div>
                     </div>
-
-                    <div href="/" className=" mt-2 text-decoration-none">
-                        <h4 className="fs-4 text-black text-center  "> Équipe 4 </h4>
-                    </div>
+                    <>
+                    {/*    if professionalData.firstName is not empty*/
+                        professionalData && professionalData.firstName && (
+                            <div href="/" className=" mt-2 text-decoration-none">
+                                <h4 className="fs-4 text-black text-center  ">{professionalData.lastName}, {professionalData.firstName}</h4>
+                            </div>)
+                    }
+                    </>
+                    
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li className="nav-item">
@@ -39,7 +76,8 @@ export default function Home() {
                     </ul>
                     <hr />
                     <div className="dropdown">
-                        <button className="btn bg-primary text-white w-100 "> Déconnexion</button>
+                        <button className="btn bg-primary text-white w-100 " onClick={() => {navigate("/login");}}>
+                            Déconnexion</button>
                     </div>
                 </div>
 
@@ -47,7 +85,12 @@ export default function Home() {
                 <div className="w-100">
                     <div className="d-flex align-content-start">
                         <div className="t2 p-4">
-                            <h1 className="text-black">Bonjour Équipe 4 ,</h1>
+                            <>
+                                {
+                                    professionalData && professionalData.firstName && (
+                                        <h1 className="text-black">Bonjour {professionalData.firstName},</h1>)
+                                }
+                            </>
                             <h5 className="text-muted "> Bienvenue dans votre tableau de bord !</h5>
                         </div>
                     </div>
@@ -87,10 +130,5 @@ export default function Home() {
 
             </div>
         </>
-
-
-
-
-
     );
 }
