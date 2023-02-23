@@ -4,6 +4,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
+// eslint-disable-next-line jsx-a11y/anchor-is-valid
 
 import moment from 'moment';
 
@@ -53,6 +54,7 @@ export default function Calendrier() {
 
     const EventList = events && events.map((event) => {
         return {
+            id: event.fakeId,
             title: event.title,
             start: new Date(event.start_time),
             end: new Date(event.end_time)
@@ -60,17 +62,16 @@ export default function Calendrier() {
     });
    
     function handleEventClick(clickInfo) {
-        if (window.confirm(`Voulez-vous supprimer l'événement '${clickInfo.event.title}'`)) {
-            var formdata = new FormData();
-            formdata.append("professionalId", idProfessional);
-
+        if (window.confirm(`Voulez-vous supprimer l'événement '${clickInfo.event.id}'`)) {
+            
+           
+            
             var requestOptions = {
                 method: 'DELETE',
-                body: formdata,
                 redirect: 'follow'
             };
 
-            fetch("https://localhost:7087/api/Api/DeleteEvent", requestOptions)
+            fetch(`https://localhost:7087/api/Api/DeleteEvent/${clickInfo.event.id}`, requestOptions)
                 .then(response => response.text())
                 .then(result => {console.log(result); clickInfo.event.remove();})
                 .catch(error => console.log('error', error));
@@ -83,7 +84,7 @@ export default function Calendrier() {
  let calendarApi = selectInfo.view.calendar
         let start_time = selectInfo.startStr
         let end_time = selectInfo.endStr 
-        
+
         let title   = prompt("Titre de l'événement");
         let description = prompt("Description de l'événement");
         let location = prompt("Lieu de l'événement");
@@ -109,6 +110,7 @@ export default function Calendrier() {
         
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        const fakeId = Math.random() * 1000;
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("Title", title);
@@ -117,11 +119,9 @@ export default function Calendrier() {
         urlencoded.append("Start_time", start_time);
         urlencoded.append("End_time", end_time);
         urlencoded.append("Organizer_id", idProfessional);
-        urlencoded.append("FakeId", 1);
+        urlencoded.append("FakeId", fakeId.toString());
         
-        //urlencoded.append("Start_time", "2022-02-18 10:00:00");
-        //urlencoded.append("End_time", "2022-02-18 11:00:00");
-
+        
         var requestOptions = {
         method: 'POST',
         headers: myHeaders,
@@ -172,7 +172,12 @@ export default function Calendrier() {
                     <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li className="nav-item">
-                            <a href="/" className="nav-link " aria-current="page">
+                            
+                            <a onClick={
+                                () => {
+                                    navigate("/professional/" + idProfessional);
+                                }
+                            } className="nav-link " aria-current="page">
                                 <svg className="" width="16" height="16">
                                     <use xlinkHref="#home" />
                                 </svg>

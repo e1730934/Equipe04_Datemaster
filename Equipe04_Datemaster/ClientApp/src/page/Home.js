@@ -1,6 +1,8 @@
 ﻿import { useEffect, useState } from "react";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
 import { useNavigate, useParams } from "react-router-dom";
 
 
@@ -42,7 +44,7 @@ export default function Home() {
     }, [idProfessional]);
 
 
-    
+
     const EventList = events && events.map((event) => {
         return {
             title: event.title,
@@ -50,7 +52,14 @@ export default function Home() {
             end: new Date(event.end_time)
         }
     });
-   
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text)
+          .then(() => alert(`Votre lien est copie dans le presse papier :) !`))
+          .catch((error) => console.error('Erreur lors de la copie du texte:', error));
+      }
+      
+
 
     return (
         <>
@@ -86,7 +95,12 @@ export default function Home() {
                             </a>
                         </li>
                         <li>
-                            <a href="/" className="nav-link  mt-4">
+                            <a onClick={
+                                
+                                () => {
+                                    navigate(`/calendrier/${idProfessional}`);
+                                }
+                            } className="nav-link  mt-4">
                                 <svg className="" width="16" height="16">
                                     <use xlinkHref="#speedometer2" />
                                 </svg>
@@ -135,23 +149,29 @@ export default function Home() {
                         <div className="w-100 p-4 m-0 ">
                             <h6>Vos disponibilites :</h6>
                             <FullCalendar
-                                plugins={[dayGridPlugin]}
-                                initialView="dayGridMonth"
-                                weekends={false}
+                                // eslint-disable-next-line no-sparse-arrays
+                                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                                headerToolbar={{
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                                }}
+                                initialView='dayGridMonth'
                                 events={EventList}
-                                height={300}
                                 width={380}
+                                height={300}
                             />
                             <p className="" onClick={() => { navigate(`/calendrier/${idProfessional}`); }}>
                                 <small>*Pour une meilleure vue, vous pouvez <g>cliquez-ici </g>.
                                 </small>
+                                
                             </p>
                             <p className="text-black m-0">Vous souhaitez generer un lien pour que vos clients puisse
                                 prendre rendez-vous ?</p>
                         </div>
 
                         <div className="p-4">
-                            <button className="btn bg-primary text-white"> Générer un lien</button>
+                            <button className="btn bg-primary text-white" onClick={() => copyToClipboard(`https://localhost:44479/booking/${idProfessional}`)}> Générer un lien</button>
                         </div>
                     </div>
 

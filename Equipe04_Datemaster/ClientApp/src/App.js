@@ -5,6 +5,7 @@ import Home from './page/Home';
 import Login from './page/Login';
 import Register from './page/Register';
 import Calendrier from "./page/Calendrier";
+import Booking from "./page/Booking";
 
 export default class App extends Component {
     static displayName = App.name;
@@ -16,6 +17,7 @@ export default class App extends Component {
                 <Route path="/professional/:idProfessional" element={<Home/>}/>
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/calendrier/:idProfessional" element={<Calendrier/>}/>
+                <Route path="/booking/:idProfessional" element={<Booking/>}/>
             </Routes>
         );
     }

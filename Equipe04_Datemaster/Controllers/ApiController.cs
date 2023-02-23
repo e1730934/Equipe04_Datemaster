@@ -165,12 +165,12 @@ public class ApiController : ControllerBase
 
     //(DELETE) Supprimer un evenement [FromForm]
     // route: api/Api/DeleteEvent
-    [HttpDelete]
-    public async Task<IActionResult> DeleteEvent([FromForm] int professionalId)
+    [HttpDelete("{fakeid}")]
+    public async Task<IActionResult> DeleteEvent(int fakeid)
     {
         try
         {
-            var existingEvent = await _context.Events.FirstOrDefaultAsync(x => x.Organizer_id == professionalId);
+            var existingEvent = await _context.Events.FirstOrDefaultAsync(x => x.FakeId == fakeid);
 
             if (existingEvent == null)
                 return NotFound(new { message = "Event not found" }); // 404
