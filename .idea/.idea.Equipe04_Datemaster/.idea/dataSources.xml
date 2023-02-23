@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="Datemaster12" uuid="d09adf26-e5a7-410b-937b-e37817012d6c">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>9b9c7f31-4540-497e-a356-a69eab20367c</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\bilal\Documents\RiderProjects\Equipe04_Datemaster\Equipe04_Datemaster\Datemaster12.sqlite</jdbc-url>
@@ -19,6 +19,21 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\bilal\Documents\RiderProjects\Equipe04_Datemaster\Equipe04_Datemaster\Datemaster.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="Datemaster [2]" uuid="8a29838b-fff0-43a7-af3a-3a3b93538703">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\narut\Documents\backend selu\Equipe04_Datemaster\Equipe04_Datemaster\Datemaster.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.39.2/sqlite-jdbc-3.39.2.jar</url>
+        </library>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Exasol/7.1.11/exajdbc-7.1.11.jar</url>
+        </library>
+      </libraries>
     </data-source>
   </component>
 </project>

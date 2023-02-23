@@ -36,14 +36,23 @@ public class ApiController : ControllerBase
             Password = professionalData.Password,
             FakeId = professionalData.FakeId
         };
+
+        var existingProfessional = await _context.Professionals.FirstOrDefaultAsync(x =>
+            x.Email == professional.Email || x.FakeId == professional.FakeId);
+
+        if (existingProfessional != null)
+            return BadRequest(new { message = "Professional already exists" }); // 400
+            else
+            {
+                _context.Professionals.Add(professional);
+                await _context.SaveChangesAsync();
+                return Ok(new { message = "Professional created successfully", professional }); // 200
+            }
+
+            
         
-        Console.WriteLine(professionalData);
-        _context.Professionals.Add(professional);
-        await _context.SaveChangesAsync();
         
-        // if error
         
-        return Ok(new { message = "Professional created successfully", professional }); // 200 et sa retourne un json
     }
 
     // [HttpPost] // route: api/Api/LoginProfessional (fait comme en  haut c un post aussi)
@@ -66,18 +75,27 @@ public class ApiController : ControllerBase
     {
         try
         {
-            var events = await _context.Events.Where(x => x.Organizer_id == professionalId).ToListAsync();
+            var events = await _context.Events.AsNoTracking()
+                .Where(e => e.Organizer_id == professionalId)
+                .OrderBy(e => e.Start_time)
+                .ToListAsync();
+
             if (events.Count == 0)
-                return NotFound(new { message = "No events found" }); // 404
+            {
+                return NotFound(new { message = "Aucun événement trouvé" }); // 404
+            }
             else
-                return Ok(new { message = "Events retrieved successfully", events }); // 200
+            {
+                return Ok(new { message = "Événements récupérés avec succès", events }); // 200
+            }
         }
         catch (Exception ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError,
-                new { message = "An error occurred while retrieving events", error = ex.Message });
+                new { message = "Une erreur s'est produite lors de la récupération des événements", error = ex.Message });
         }
     }
+
 
 
     //(POST) Créer un evenement [FromForm]

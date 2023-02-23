@@ -1,13 +1,13 @@
-﻿import {useEffect, useState} from "react";
+﻿import { useEffect, useState } from "react";
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 export default function Home() {
 
     // Get idProfessional from params
-    const {idProfessional} = useParams();
+    const { idProfessional } = useParams();
     const [professionalData, setProfessionalData] = useState(null);
     const [events, setEvents] = useState(null);
     const [eventsConverted, setEventsConverted] = useState([]);
@@ -39,31 +39,31 @@ export default function Home() {
         }
 
         getEvents();
-        convertEvents(events)
     }, [idProfessional]);
-    async function convertEvents(events){
-        if(events){
-            const eventData = events.map((event) => {
-                return {
-                    title: event.title,
-                    date: event.start_time.split(" ")[0]
-                    }
-                    });
-            setEventsConverted(eventData);
-        }}
+
+
+    
+    const EventList = events && events.map((event) => {
+        return {
+            title: event.title,
+            start: new Date(event.start_time),
+            end: new Date(event.end_time)
+        }
+    });
+   
 
     return (
         <>
             <div className="d-flex full-height full-width " style={{}}>
                 {/* SIDEBAR */}
                 <div className="d-flex flex-column flex-shrink-0 p-4 text-black bg-white full-height border "
-                     style={{width: 300}}>
+                    style={{ width: 300 }}>
                     <div className="d-flex align-content-center justify-content-center">
-                        <div style={{width: 160, height: 160}}
-                             className="bg-primary rounded-circle d-flex justify-content-center align-content-center ">
+                        <div style={{ width: 160, height: 160 }}
+                            className="bg-primary rounded-circle d-flex justify-content-center align-content-center ">
                             <img
                                 src="https://cdn.discordapp.com/attachments/1024417997785399308/1077767238309924874/PXPNG.COMNicole_Watterson_The_Amazing_World_of_Gumball_PNG_Image_-_742x1077.png"
-                                alt="" style={{height: 150}} className="mt-2"/>
+                                alt="" style={{ height: 150 }} className="mt-2" />
                         </div>
                     </div>
                     <>
@@ -75,12 +75,12 @@ export default function Home() {
                         }
                     </>
 
-                    <hr/>
+                    <hr />
                     <ul className="nav nav-pills flex-column mb-auto">
                         <li className="nav-item">
                             <a href="/" className="nav-link active" aria-current="page">
                                 <svg className="" width="16" height="16">
-                                    <use xlinkHref="#home"/>
+                                    <use xlinkHref="#home" />
                                 </svg>
                                 <span className="text-xl">Tableau de bord</span>
                             </a>
@@ -88,13 +88,13 @@ export default function Home() {
                         <li>
                             <a href="/" className="nav-link  mt-4">
                                 <svg className="" width="16" height="16">
-                                    <use xlinkHref="#speedometer2"/>
+                                    <use xlinkHref="#speedometer2" />
                                 </svg>
                                 <span>Mon calendrier</span>
                             </a>
                         </li>
                     </ul>
-                    <hr/>
+                    <hr />
                     <div className="dropdown">
                         <button className="btn bg-primary text-white w-100 " onClick={() => {
                             navigate("/");
@@ -124,7 +124,7 @@ export default function Home() {
                             <h4>
                                 Pour le moment,
                             </h4>
-                            <h4> Vous avez un total de 
+                            <h4> Vous avez un total de
                                 <>{
                                     events && events.length && (
                                         <g> {events.length} rendez-vous.</g>)}
@@ -138,12 +138,12 @@ export default function Home() {
                                 plugins={[dayGridPlugin]}
                                 initialView="dayGridMonth"
                                 weekends={false}
-                                events={eventsConverted}
+                                events={EventList}
                                 height={300}
                                 width={380}
                             />
-                            <p className="" onClick={() => {navigate(`/calendrier/${idProfessional}`);}}>
-                                <small>*Pour une meilleure vue, vous pouvez <g>cliquez-ici </g>. 
+                            <p className="" onClick={() => { navigate(`/calendrier/${idProfessional}`); }}>
+                                <small>*Pour une meilleure vue, vous pouvez <g>cliquez-ici </g>.
                                 </small>
                             </p>
                             <p className="text-black m-0">Vous souhaitez generer un lien pour que vos clients puisse

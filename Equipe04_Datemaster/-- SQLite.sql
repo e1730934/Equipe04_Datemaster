@@ -14,6 +14,17 @@ FakeId INTEGER NOT NULL,
 FOREIGN KEY (Organizer_id) REFERENCES Professionals(Id)
 );
 
+
+//make FakeId NULL
+
+
+
+delete from Events
+
+drop table Events
+
+
+
 CREATE TABLE Participants (
 Id INTEGER PRIMARY KEY AUTOINCREMENT,
 Name TEXT NOT NULL,

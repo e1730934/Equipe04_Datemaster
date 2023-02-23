@@ -4,9 +4,9 @@ namespace Equipe04_Datemaster.Models;
 
 public class Professional
 {
-    [Key] public int FakeId { get; set; }
+  [Required(AllowEmptyStrings = true)] public int FakeId { get; set; }
 
-    [Required(AllowEmptyStrings = true)] public string FirstName { get; set; }
+    public string FirstName { get; set; }
 
     [Required(AllowEmptyStrings = true)] public string LastName { get; set; }
 
@@ -23,7 +23,7 @@ public class Professional
 
     public int Gender { get; set; }
 
-    [Required(AllowEmptyStrings = true)] public int Id { get; set; }
+    [Key] [Required(AllowEmptyStrings = true)] public int Id { get; set; }
 }
 
 public class ProfessionalLogin

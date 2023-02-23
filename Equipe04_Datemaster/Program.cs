@@ -9,7 +9,11 @@ builder.Services.AddControllersWithViews();
 
 // Add your DbContext configuration to the container
 builder.Services.AddDbContext<DbContext>(options =>
+
+
 {
+    
+
     var path = Path.Combine(Directory.GetCurrentDirectory(), "Datemaster.sqlite");
     options.UseSqlite($"Data Source={path}");
 
