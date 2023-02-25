@@ -62,7 +62,7 @@ export default function Calendrier() {
     });
    
     function handleEventClick(clickInfo) {
-        if (window.confirm(`Voulez-vous supprimer l'événement '${clickInfo.event.id}'`)) {
+        if (window.confirm(`Voulez-vous supprimer l'événement '${clickInfo.event.title}'`)) {
             
            
             
@@ -110,7 +110,7 @@ export default function Calendrier() {
         
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-        const fakeId = Math.random() * 1000;
+        const fakeId = Math.floor(Math.random() * 1000);
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("Title", title);
