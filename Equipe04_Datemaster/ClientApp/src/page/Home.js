@@ -140,9 +140,11 @@ export default function Home() {
                             </h4>
                             <h4> Vous avez un total de
                                 <>{
-                                    events && events.length && (
+                                    events && events.length === 0 || events==null && (
+                                        <g> 0 rendez-vous.</g>)}
+                                    {events && events.length > 0 && (
                                         <g> {events.length} rendez-vous.</g>)}
-                                </>
+                                        </>
                             </h4>
                         </div>
 
